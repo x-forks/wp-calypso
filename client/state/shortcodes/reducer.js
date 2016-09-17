@@ -8,12 +8,16 @@ import {
 	SHORTCODE_RECEIVE
 } from 'state/action-types';
 
-const siteShortcodeStatus = createReducer( null, {
+const siteShortcode = createReducer( {}, {
 	[ SHORTCODE_FETCH ]: ( state ) => {
 		return { ...state, ...{ status: LOAD_STATUS.LOADING } };
 	},
-	[ SHORTCODE_RECEIVE ]: ( state, { error } ) => {
-		return { ...state, ...{ status: error ? LOAD_STATUS.ERROR : LOAD_STATUS.LOADED } };
+	[ SHORTCODE_RECEIVE ]: ( state, { error, data } ) => {
+		const { scripts, styles } = data;
+		const body = data.result;
+		const status = error ? LOAD_STATUS.ERROR : LOAD_STATUS.LOADED;
+
+		return { ...state, ...{ body, scripts, styles, status } };
 	},
 } );
 
@@ -22,7 +26,7 @@ const siteShortcodes = ( state = {}, action ) => {
 		case SHORTCODE_FETCH:
 		case SHORTCODE_RECEIVE:
 			const { shortcode } = action;
-			return { ...state, ...{ [ shortcode ]: siteShortcodeStatus( state[ shortcode ] || {}, action ) } };
+			return { ...state, ...{ [ shortcode ]: siteShortcode( state[ shortcode ] || {}, action ) } };
 	}
 
 	return state;
