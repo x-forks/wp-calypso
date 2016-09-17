@@ -11,7 +11,8 @@ export function fetchShortcode( siteId, shortcode ) {
 	return ( dispatch ) => {
 		dispatch( {
 			type: SHORTCODE_FETCH,
-			payload: { siteId, shortcode }
+			siteId,
+			shortcode
 		} );
 
 		return wpcom.undocumented().site( siteId ).shortcodes( {
@@ -19,8 +20,10 @@ export function fetchShortcode( siteId, shortcode ) {
 		}, ( error, data ) => {
 			dispatch( {
 				type: SHORTCODE_RECEIVE,
-				payload: { siteId, shortcode, data },
-				error: error
+				siteId,
+				shortcode,
+				data,
+				error
 			} );
 		} );
 	};
