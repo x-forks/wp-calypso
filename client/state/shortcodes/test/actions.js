@@ -2,7 +2,6 @@
  * External dependencies
  */
 import { expect } from 'chai';
-import nock from 'nock';
 
 /**
  * Internal dependencies
@@ -13,22 +12,19 @@ import {
 } from 'state/action-types';
 import { fetchShortcode } from '../actions';
 import { useSandbox } from 'test/helpers/use-sinon';
+import useNock from 'test/helpers/use-nock';
 import wpcom from 'lib/wp';
 
 describe( 'actions', () => {
-	let sandbox, spy;
-
-	useSandbox( newSandbox => {
-		sandbox = newSandbox;
-		spy = sandbox.spy();
-	} );
+	let spy;
+	useSandbox( ( sandbox ) => spy = sandbox.spy() );
 
 	describe( '#fetchShortcode()', () => {
 		const siteId = 12345678;
 		const shortcode = '[gallery ids="1,2,3"]';
 
 		describe( 'success', () => {
-			before( () => {
+			useNock( ( nock ) => {
 				nock( 'https://public-api.wordpress.com:443' )
 					.persist()
 					.get( '/sites/' + siteId + '/shortcodes/render' )
@@ -43,10 +39,6 @@ describe( 'actions', () => {
 					}, {
 						'Content-Type': 'application/json'
 					} );
-			} );
-
-			after( () => {
-				nock.cleanAll();
 			} );
 
 			it( 'should return a fetch action object when called', () => {
@@ -83,7 +75,7 @@ describe( 'actions', () => {
 		} );
 
 		describe( 'failure', () => {
-			before( () => {
+			useNock( ( nock ) => {
 				nock( 'https://public-api.wordpress.com:443' )
 					.persist()
 					.get( '/sites/' + siteId + '/shortcodes/render' )
@@ -95,10 +87,6 @@ describe( 'actions', () => {
 					}, {
 						'Content-Type': 'application/json'
 					} );
-			} );
-
-			after( () => {
-				nock.cleanAll();
 			} );
 
 			it( 'should return a receive action when an error occurs', () => {
