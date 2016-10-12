@@ -102,7 +102,6 @@ SwitcherShell = React.createClass( {
 						<InfiniteList
 							items={ users }
 							key={ infiniteListKey }
-							namespace={ infiniteListKey }
 							className="author-selector__infinite-list"
 							ref={ this._setListContext }
 							context={ this.state.listContext }
