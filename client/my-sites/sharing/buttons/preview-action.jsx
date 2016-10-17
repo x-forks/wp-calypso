@@ -1,41 +1,41 @@
 /**
  * External dependencies
  */
-var React = require( 'react' ),
-	classNames = require( 'classnames' ),
-	omit = require( 'lodash' ).omit;
+import React, { PropTypes } from 'react';
+import classNames from 'classnames';
+import { omit } from 'lodash';
 
-module.exports = React.createClass( {
+export default React.createClass( {
 	displayName: 'SharingButtonsPreviewAction',
 
 	propTypes: {
-		active: React.PropTypes.bool,
-		position: React.PropTypes.oneOf( [
+		active: PropTypes.bool,
+		position: PropTypes.oneOf( [
 			'top-left',
 			'top-right',
 			'bottom-left',
 			'bottom-right'
 		] ),
-		icon: React.PropTypes.string,
-		onClick: React.PropTypes.func
+		icon: PropTypes.string,
+		onClick: PropTypes.func
 	},
 
-	getDefaultProps: function() {
+	getDefaultProps() {
 		return {
 			active: true,
 			position: 'top-left',
-			onClick: function() {}
+			onClick: () => {}
 		};
 	},
 
-	getIconElement: function() {
+	getIconElement() {
 		if ( this.props.icon ) {
 			return <span className={ 'noticon noticon-' + this.props.icon } />;
 		}
 	},
 
-	render: function() {
-		var classes = classNames( 'sharing-buttons-preview-action', {
+	render() {
+		const classes = classNames( 'sharing-buttons-preview-action', {
 			'is-active': this.props.active,
 			'is-top': 0 === this.props.position.indexOf( 'top' ),
 			'is-right': -1 !== this.props.position.indexOf( '-right' ),
