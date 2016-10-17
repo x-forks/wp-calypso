@@ -3,7 +3,7 @@
  */
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import { omit } from 'lodash';
+import { omit, noop } from 'lodash';
 
 export default React.createClass( {
 	displayName: 'SharingButtonsPreviewAction',
@@ -24,7 +24,7 @@ export default React.createClass( {
 		return {
 			active: true,
 			position: 'top-left',
-			onClick: () => {}
+			onClick: noop
 		};
 	},
 
