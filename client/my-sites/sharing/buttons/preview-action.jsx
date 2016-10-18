@@ -1,14 +1,12 @@
 /**
  * External dependencies
  */
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import { omit, noop } from 'lodash';
 
-export default React.createClass( {
-	displayName: 'SharingButtonsPreviewAction',
-
-	propTypes: {
+export default class SharingButtonsPreviewAction extends Component {
+	static propTypes = {
 		active: PropTypes.bool,
 		position: PropTypes.oneOf( [
 			'top-left',
@@ -18,21 +16,23 @@ export default React.createClass( {
 		] ),
 		icon: PropTypes.string,
 		onClick: PropTypes.func
-	},
+	};
 
-	getDefaultProps() {
-		return {
-			active: true,
-			position: 'top-left',
-			onClick: noop
-		};
-	},
+	static defaultProps = {
+		active: true,
+		position: 'top-left',
+		onClick: noop
+	};
+
+	constructor( props ) {
+		super( props );
+	}
 
 	getIconElement() {
 		if ( this.props.icon ) {
 			return <span className={ 'noticon noticon-' + this.props.icon } />;
 		}
-	},
+	}
 
 	render() {
 		const classes = classNames( 'sharing-buttons-preview-action', {
@@ -50,4 +50,4 @@ export default React.createClass( {
 			</button>
 		);
 	}
-} );
+}
