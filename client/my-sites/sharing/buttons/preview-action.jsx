@@ -29,24 +29,26 @@ export default class SharingButtonsPreviewAction extends Component {
 	}
 
 	getIconElement() {
-		if ( this.props.icon ) {
-			return <span className={ 'noticon noticon-' + this.props.icon } />;
+		const { icon } = this.props;
+		if ( icon ) {
+			return <span className={ 'noticon noticon-' + icon } />;
 		}
 	}
 
 	render() {
+		const { active, position, children } = this.props;
 		const classes = classNames( 'sharing-buttons-preview-action', {
-			'is-active': this.props.active,
-			'is-top': 0 === this.props.position.indexOf( 'top' ),
-			'is-right': -1 !== this.props.position.indexOf( '-right' ),
-			'is-bottom': 0 === this.props.position.indexOf( 'bottom' ),
-			'is-left': -1 !== this.props.position.indexOf( '-left' )
+			'is-active': active,
+			'is-top': 0 === position.indexOf( 'top' ),
+			'is-right': -1 !== position.indexOf( '-right' ),
+			'is-bottom': 0 === position.indexOf( 'bottom' ),
+			'is-left': -1 !== position.indexOf( '-left' )
 		} );
 
 		return (
 			<button type="button" className={ classes } { ...omit( this.props, [ 'active', 'position' ] ) }>
 				{ this.getIconElement() }
-				{ this.props.children }
+				{ children }
 			</button>
 		);
 	}
