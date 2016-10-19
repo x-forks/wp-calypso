@@ -16,7 +16,7 @@ const SharingButtonsPreviewAction = ( props ) => {
 	} );
 
 	return (
-		<button type="button" className={ classes } { ...omit( props, [ 'active', 'position' ] ) }>
+		<button type="button" className={ classes } { ...omit( props, [ 'active', 'position', 'icon' ] ) }>
 			{ icon && <span className={ 'noticon noticon-' + icon } /> }
 			{ children }
 		</button>
