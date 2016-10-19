@@ -3,16 +3,16 @@
  */
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import { omit } from 'lodash';
+import { omit, startsWith, endsWith } from 'lodash';
 
 const SharingButtonsPreviewAction = ( props ) => {
 	const { active, position, icon, children } = props;
 	const classes = classNames( 'sharing-buttons-preview-action', {
 		'is-active': active,
-		'is-top': 0 === position.indexOf( 'top' ),
-		'is-right': -1 !== position.indexOf( '-right' ),
-		'is-bottom': 0 === position.indexOf( 'bottom' ),
-		'is-left': -1 !== position.indexOf( '-left' )
+		'is-top': startsWith( position, 'top' ),
+		'is-right': endsWith( position, '-right' ),
+		'is-bottom': startsWith( position, 'bottom' ),
+		'is-left': endsWith( position, '-left' )
 	} );
 
 	return (
